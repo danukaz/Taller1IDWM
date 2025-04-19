@@ -8,13 +8,13 @@ namespace Taller.src.models
 {
     public class Product
     {
-        public int id { get; set;}
-        public required string name { get; set; }
-        public required string description { get; set; }
-        public decimal price { get; set; }
-        public required string category { get; set; }
-        public string[]? urls { get; set; }
-        public int stock { get; set; }
-        public required string brand { get; set;}
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public decimal Price { get; set; }
+        public required string Category { get; set; }
+        public string[]? Urls { get; set; }
+        public int Stock { get; set; }
+        public required string Brand { get; set; }
     }
 }

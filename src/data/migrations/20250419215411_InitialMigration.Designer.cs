@@ -10,7 +10,7 @@ using Taller.src.data;
 namespace Taller.src.data.migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250418035503_InitialMigration")]
+    [Migration("20250419215411_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -21,36 +21,36 @@ namespace Taller.src.data.migrations
 
             modelBuilder.Entity("Taller.src.models.Product", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("brand")
+                    b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("category")
+                    b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("stock")
+                    b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
 
-                    b.PrimitiveCollection<string>("urls")
+                    b.PrimitiveCollection<string>("Urls")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Products");
                 });

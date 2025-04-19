@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +28,14 @@ namespace Taller.src.controllers
         {
             var products = _context.Products.ToList();
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Product> GetById(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null) return NotFound();
+            return Ok(product);
         }
     }
 }

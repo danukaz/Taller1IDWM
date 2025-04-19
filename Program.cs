@@ -20,7 +20,7 @@ try
             .Enrich.FromLogContext()
             .Enrich.WithThreadId()
             .Enrich.WithMachineName();
-            
+
     });
 
     var app = builder.Build();
