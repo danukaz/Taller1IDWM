@@ -7,9 +7,9 @@ using Bogus;
 
 using Microsoft.EntityFrameworkCore;
 
-using Taller.src.models;
+using Taller.Src.Models;
 
-namespace Taller.src.data
+namespace Taller.Src.Data
 {
     public class DbInitializer
     {
@@ -27,7 +27,15 @@ namespace Taller.src.data
         {
             context.Database.Migrate();
 
-            if (context.Products.Any()) return;
+            try
+            {
+                if (context.Products.Any()) return;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al verificar existencia de productos: {ex.Message}");
+                return;
+            }
 
             var faker = new Faker("es");
 

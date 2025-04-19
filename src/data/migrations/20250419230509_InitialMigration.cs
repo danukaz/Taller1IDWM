@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Taller.src.data.migrations
+namespace Taller.Src.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

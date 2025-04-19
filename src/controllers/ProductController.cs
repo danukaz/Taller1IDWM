@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using Taller.src.data;
-using Taller.src.models;
+using Taller.Src.Data;
+using Taller.Src.Models;
 
-namespace Taller.src.controllers
+namespace Taller.Src.Controllers
 {
     [Route("[controller]")]
     public class ProductController : Controller

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Taller.src.models
+namespace Taller.Src.Models
 {
     public class Product
     {

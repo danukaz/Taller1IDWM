@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Serilog;
 
-using Taller.src.data;
+using Taller.Src.Data;
 Log.Logger = new LoggerConfiguration()
 
     .CreateLogger();

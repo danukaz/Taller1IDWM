@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using Taller.src.models;
+using Taller.Src.Models;
 
-namespace Taller.src.data
+namespace Taller.Src.Data
 {
     public class StoreContext(DbContextOptions options) : DbContext(options)
     {

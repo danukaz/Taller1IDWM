@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Taller.src.data;
+using Taller.Src.Data;
 
 #nullable disable
 
-namespace Taller.src.data.migrations
+namespace Taller.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250419215411_InitialMigration")]
+    [Migration("20250419230509_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace Taller.src.data.migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
 
-            modelBuilder.Entity("Taller.src.models.Product", b =>
+            modelBuilder.Entity("Taller.Src.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
