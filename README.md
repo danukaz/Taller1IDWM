@@ -9,13 +9,14 @@ Este sistema es una API REST que gestiona un catálogo de productos para un sist
 Para ejecutar este sistema, necesitas tener instaladas las siguientes herramientas:
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet)
-- [SQLite](https://www.sqlite.org/download.html) (si quieres utilizar SQLite de manera local)
+- [SQLite](https://www.sqlite.org/download.html) (Opcional: si quieres utilizar SQLite de manera local)
+- [Postman](https://www.postman.com/downloads/) (Opcional: Para probar la API)
 - [Visual Studio Code](https://code.visualstudio.com/) (o cualquier editor de código preferido)
 
 ## Instrucciones de instalación
 
 Sigue estos pasos para clonar el repositorio y preparar tu entorno de desarrollo:
-
+s
 1. **Clonar el repositorio**:
    En tu terminal o consola, navega a la carpeta en la que quieras instalar el proyecto y ejecuta el siguiente comando para clonar el repositorio en tu máquina local:
    ```bash
@@ -24,10 +25,13 @@ Sigue estos pasos para clonar el repositorio y preparar tu entorno de desarrollo
 2. **Restaurar las dependencias**:
    Una vez clonado el repositorio, ejecuta los siguiente comandos para restaurar las dependencias del proyecto:
    ```bash
+   dir Taller1IDWM          # Para cambiar a la carpeta raiz del proyecto
    dotnet restore           # Restaura dependencias NuGet
    dotnet tool restore      # Restaura herramientras dotnet (como husky)
    ```
-3. **Configurar la base de datos** (opcional):
+3. **Configurar appsettings.json**
+   En la carpeta raíz del proyecto, verás un archivo llamado `appsettings.example.json`. Por razones de seguridad, no se puede compartir el archivo original, pero se provee este archivo de ejemplo para que el usuario no pueda ver información sensible que se pueda colocar en este archivo. Por ahora, no hay ningún tipo de información que se deba reemplazar, por lo que basta con renombrar este archivo a `appsettings.json` y seguir con la instalación del proyecto.
+4. **Configurar la base de datos** (opcional):
    La base de datos se inicializa automáticamente al ejecutar la aplicación, pero si por algún motivo se produce un error o deseas inicializarla manualmente, puedes eliminar los archivos de la carpeta Src/Data/Migrations, y ejecutar el siguiente comando:
    ```bash
    dotnet ef migrations add InitialMigration -o Src/Data/Migrations
