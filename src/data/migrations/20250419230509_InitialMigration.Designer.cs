@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Taller.src.data;
+using Taller.Src.Data;
 
 #nullable disable
 
-namespace Taller.src.data.migrations
+namespace Taller.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250418035503_InitialMigration")]
+    [Migration("20250419230509_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -19,38 +19,38 @@ namespace Taller.src.data.migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
 
-            modelBuilder.Entity("Taller.src.models.Product", b =>
+            modelBuilder.Entity("Taller.Src.Models.Product", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("brand")
+                    b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("category")
+                    b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("stock")
+                    b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
 
-                    b.PrimitiveCollection<string>("urls")
+                    b.PrimitiveCollection<string>("Urls")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Products");
                 });

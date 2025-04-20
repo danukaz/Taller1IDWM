@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Taller.src.data.migrations
+namespace Taller.Src.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -14,19 +14,19 @@ namespace Taller.src.data.migrations
                 name: "Products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
-                    description = table.Column<string>(type: "TEXT", nullable: false),
-                    price = table.Column<decimal>(type: "TEXT", nullable: false),
-                    category = table.Column<string>(type: "TEXT", nullable: false),
-                    urls = table.Column<string>(type: "TEXT", nullable: true),
-                    stock = table.Column<int>(type: "INTEGER", nullable: false),
-                    brand = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Category = table.Column<string>(type: "TEXT", nullable: false),
+                    Urls = table.Column<string>(type: "TEXT", nullable: true),
+                    Stock = table.Column<int>(type: "INTEGER", nullable: false),
+                    Brand = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
         }
 

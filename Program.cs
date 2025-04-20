@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Serilog;
 
-using Taller.src.data;
+using Taller.Src.Data;
 Log.Logger = new LoggerConfiguration()
 
     .CreateLogger();
@@ -20,7 +20,7 @@ try
             .Enrich.FromLogContext()
             .Enrich.WithThreadId()
             .Enrich.WithMachineName();
-            
+
     });
 
     var app = builder.Build();
