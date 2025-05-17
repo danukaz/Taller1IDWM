@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller.src.models;
+using Taller.Src.Models;
 
 namespace Ayudantia.Src.Extensions
 {
@@ -24,8 +24,8 @@ namespace Ayudantia.Src.Extensions
                 categoryList.AddRange(categories.ToLower().Split(","));
             }
 
-            query = query.Where(p => brandList.Count == 0 || brandList.Contains(p.brand.ToLower()));
-            query = query.Where(p => categoryList.Count == 0 || categoryList.Contains(p.category.ToLower()));
+            query = query.Where(p => brandList.Count == 0 || brandList.Contains(p.Brand.ToLower()));
+            query = query.Where(p => categoryList.Count == 0 || categoryList.Contains(p.Category.ToLower()));
 
             return query;
         }
@@ -35,15 +35,15 @@ namespace Ayudantia.Src.Extensions
 
             var lowerCaseSearch = search.Trim().ToLower();
 
-            return query.Where(p => p.name.ToLower().Contains(lowerCaseSearch));
+            return query.Where(p => p.Name.ToLower().Contains(lowerCaseSearch));
         }
         public static IQueryable<Product> Sort(this IQueryable<Product> query, string? orderBy)
         {
             query = orderBy switch
             {
-                "price" => query.OrderBy(p => (double)p.price),
-                "priceDesc" => query.OrderByDescending(p => (double)p.price),
-                _ => query.OrderBy(p => p.name)
+                "price" => query.OrderBy(p => (double)p.Price),
+                "priceDesc" => query.OrderByDescending(p => (double)p.Price),
+                _ => query.OrderBy(p => p.Name)
             };
             return query;
         }

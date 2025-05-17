@@ -1,12 +1,17 @@
+using System.Security.Claims;
+using System.Text;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 using Serilog;
 
-using Taller.src.data;
-using Taller.src.interfaces;
-using Taller.src.models;
-using Taller.src.repositories;
 using Taller.Src.Data;
+using Taller.Src.Interfaces;
+using Taller.Src.Models;
+using Taller.Src.Repositories;
 Log.Logger = new LoggerConfiguration()
 
     .CreateLogger();

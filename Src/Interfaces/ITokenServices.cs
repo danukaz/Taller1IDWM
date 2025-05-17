@@ -1,6 +1,6 @@
-using Taller.src.models;
+using Taller.Src.Models;
 
-namespace Taller.src.interfaces
+namespace Taller.Src.Interfaces
 {
     public interface ITokenServices
     {

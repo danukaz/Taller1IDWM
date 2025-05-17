@@ -1,15 +1,15 @@
-using Taller.src.data;
-using Taller.src.dtos;
-using Taller.src.helpers;
-using Taller.src.interfaces;
-using Taller.src.mappers;
-using Taller.src.models;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+using Taller.Src.Data;
+using Taller.Src.Dtos;
+using Taller.Src.Helpers;
+using Taller.Src.Interfaces;
+using Taller.Src.Mappers;
+using Taller.Src.Models;
 
-namespace Taller.src.controllers
+
+namespace Taller.Src.Controllers
 {
 
     public class AuthController(ILogger<AuthController> logger, UserManager<User> userManager, ITokenServices tokenService) : BaseController

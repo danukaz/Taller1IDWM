@@ -11,7 +11,7 @@ using Taller.Src.Data;
 using Taller.Src.Models;
 
 
-namespace Taller.src.controllers;
+namespace Taller.Src.Controllers;
 
 public class ProductController(ILogger<ProductController> logger, UnitOfWork unitOfWork) : BaseController
 {
@@ -36,7 +36,7 @@ public class ProductController(ILogger<ProductController> logger, UnitOfWork uni
     {
         await _context.ProductRepository.AddProductAsync(product);
         await _context.SaveChangeAsync();
-        return CreatedAtAction(nameof(GetById), new { id = product.id }, product);
+        return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
 
     }
 }
