@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using Taller.src.data;
-using Taller.src.models;
+using Taller.Src.Data;
+using Taller.Src.Models;
+
 
 namespace Taller.src.controllers;
 
@@ -35,5 +37,6 @@ public class ProductController(ILogger<ProductController> logger, UnitOfWork uni
         await _context.ProductRepository.AddProductAsync(product);
         await _context.SaveChangeAsync();
         return CreatedAtAction(nameof(GetById), new { id = product.id }, product);
+
     }
 }

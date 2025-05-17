@@ -6,6 +6,7 @@ using Taller.src.data;
 using Taller.src.interfaces;
 using Taller.src.models;
 using Taller.src.repositories;
+using Taller.Src.Data;
 Log.Logger = new LoggerConfiguration()
 
     .CreateLogger();
