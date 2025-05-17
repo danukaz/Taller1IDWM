@@ -13,5 +13,6 @@ public interface IProductRepository
     Task<IEnumerable<Product>> GetProductsAsync();
     Task AddProductAsync(Product product);
     Task DeleteProductAsync(Product product);
-    Task UpdateProduct(Product product);
+    Task UpdateProductAsync(Product product);
+    IQueryable<Product> GetQueryableProducts();
 }

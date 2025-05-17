@@ -9,24 +9,31 @@ using Microsoft.Extensions.Logging;
 using Taller.src.data;
 using Taller.src.models;
 
-namespace Taller.src.controllers
-{
-    [Route("[controller]")]
-    public class ProductController : Controller
-    {
-        private readonly ILogger<ProductController> _logger;
-        private readonly StoreContext _context;
-        public ProductController(ILogger<ProductController> logger, StoreContext context)
-        {
-            _context = context;
-            _logger = logger;
-        }
+namespace Taller.src.controllers;
 
-        [HttpGet]
-        public ActionResult<List<Product>> GetAll()
-        {
-            var products = _context.Products.ToList();
-            return Ok(products);
-        }
+public class ProductController(ILogger<ProductController> logger, UnitOfWork unitOfWork) : BaseController
+{
+    private readonly ILogger<ProductController> _logger = logger;
+    private readonly UnitOfWork _context = unitOfWork;
+
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetAll()
+    {
+        var products = await _context.ProductRepository.GetProductsAsync();
+        return Ok(products);
+    }
+
+    [HttpGet("id")]
+    public async Task<ActionResult<Product>> GetById(int id)
+    {
+        var product = await _context.ProductRepository.GetProductByIdAsync(id);
+        return product == null ? (ActionResult<Product>)NotFound() : (ActionResult<Product>)Ok(product);
+    }
+    [HttpPost]
+    public async Task<ActionResult<Product>> Create(Product product)
+    {
+        await _context.ProductRepository.AddProductAsync(product);
+        await _context.SaveChangeAsync();
+        return CreatedAtAction(nameof(GetById), new { id = product.id }, product);
     }
 }

@@ -36,9 +36,21 @@ public class ProductRepository(StoreContext store, ILogger<Product> logger) : IP
         return await _context.Products.ToListAsync() ?? throw new Exception("Product not found");
     }
 
-    public void UpdateProduct(Product product)
+    public IQueryable<Product> GetQueryableProducts()
     {
         throw new NotImplementedException();
+    }
+
+    public async Task UpdateProductAsync(Product product)
+    {
+        var existingProduct = await _context.Products.FindAsync(product.id) ?? throw new Exception("Product not found");
+        existingProduct.name = product.name;
+        existingProduct.description = product.description;
+        existingProduct.price = product.price;
+        existingProduct.stock = product.stock;
+        existingProduct.urls = product.urls;
+        existingProduct.brand = product.brand;
+        _context.Products.Update(existingProduct);
     }
 
     Task IProductRepository.DeleteProductAsync(Product product)
