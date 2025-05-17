@@ -11,7 +11,7 @@ using Taller.Src.Data;
 using Taller.Src.Models;
 
 
-namespace Taller.src.controllers;
+namespace Taller.Src.Controllers;
 
 public class ProductController(ILogger<ProductController> logger, UnitOfWork unitOfWork) : BaseController
 {

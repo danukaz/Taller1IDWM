@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller.src.data;
-using Taller.src.interfaces;
-using Taller.src.models;
+using Taller.Src.Data;
+using Taller.Src.Interfaces;
+using Taller.Src.Models;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Taller.src.repositories;
+namespace Taller.Src.Repositories;
 
 public class ProductRepository(StoreContext store, ILogger<Product> logger) : IProductRepository
 {
@@ -43,13 +43,13 @@ public class ProductRepository(StoreContext store, ILogger<Product> logger) : IP
 
     public async Task UpdateProductAsync(Product product)
     {
-        var existingProduct = await _context.Products.FindAsync(product.id) ?? throw new Exception("Product not found");
-        existingProduct.name = product.name;
-        existingProduct.description = product.description;
-        existingProduct.price = product.price;
-        existingProduct.stock = product.stock;
-        existingProduct.urls = product.urls;
-        existingProduct.brand = product.brand;
+        var existingProduct = await _context.Products.FindAsync(product.Id) ?? throw new Exception("Product not found");
+        existingProduct.Name = product.Name;
+        existingProduct.Description = product.Description;
+        existingProduct.Price = product.Price;
+        existingProduct.Stock = product.Stock;
+        existingProduct.Urls = product.Urls;
+        existingProduct.Brand = product.Brand;
         _context.Products.Update(existingProduct);
     }
 

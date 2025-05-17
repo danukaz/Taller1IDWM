@@ -4,18 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-using Taller.src.dtos;
-using Taller.src.models;
+using Taller.Src.Dtos;
+using Taller.Src.Models;
 
-namespace Taller.src.interfaces
+namespace Taller.Src.Interfaces
 {
     public interface IUserRepository
     {
         Task<IEnumerable<UserDto>> GetAllUserAsync();
-        Task<UserDto> GetUserByIdAsync(string firtsName);
-        Task CreateUserAsync(User user, ShippingAddres? shippingAddres);
+        Task<UserDto> GetUserByIdAsync(string firstName);
+        Task CreateUserAsync(User user, ShippingAddress? shippingAddress);
         void UpdateUser(User user);
-        void UpdateShippingAddresAsync(UserDto userDto);
-        void DeleteUserAsync(User user, ShippingAddres shippingAddres);
+        void UpdateShippingAddressAsync(UserDto userDto);
+        void DeleteUserAsync(User user, ShippingAddress shippingAddress);
     }
 }

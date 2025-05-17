@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller.src.interfaces;
+using Taller.Src.Interfaces;
 
-namespace Taller.src.data;
+namespace Taller.Src.Data;
 
 public class UnitOfWork(StoreContext context, IProductRepository productRepository, IUserRepository userRepository)
 {

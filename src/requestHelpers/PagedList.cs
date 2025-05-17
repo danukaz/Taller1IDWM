@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Taller.src.requesthelpers
+namespace Taller.Src.Requesthelpers
 {
     public class PagedList<T> : List<T>
     {

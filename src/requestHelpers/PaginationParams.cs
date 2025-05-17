@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Taller.src.requesthelpers
+namespace Taller.Src.Requesthelpers
 {
     public class PaginationParams
     {

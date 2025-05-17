@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller.src.dtos;
-using Taller.src.models;
+using Taller.Src.Dtos;
+using Taller.Src.Models;
 
-namespace Taller.src.mappers
+namespace Taller.Src.Mappers
 {
     public class UserMapper
     {
         public static UserDto MapToDTO(User user) =>
             new()
             {
-                FirtsName = user.FirtsName,
+                FirstName = user.FirstName,
                 LastName = user.LastName,
-                Thelephone = user.Thelephone,
+                Telephone = user.Telephone,
                 Email = user.Email,
-                Street = user.ShippingAddres?.Street ?? string.Empty,
-                Number = user.ShippingAddres?.Number ?? string.Empty,
-                Commune = user.ShippingAddres?.Commune ?? string.Empty,
-                Region = user.ShippingAddres?.Region ?? string.Empty,
-                PostalCode = user.ShippingAddres?.PostalCode ?? string.Empty,
+                Street = user.ShippingAddress?.Street ?? string.Empty,
+                Number = user.ShippingAddress?.Number ?? string.Empty,
+                Commune = user.ShippingAddress?.Commune ?? string.Empty,
+                Region = user.ShippingAddress?.Region ?? string.Empty,
+                PostalCode = user.ShippingAddress?.PostalCode ?? string.Empty,
             };
     }
 }

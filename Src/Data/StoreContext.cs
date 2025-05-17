@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller.src.models;
+using Taller.Src.Models;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Taller.src.data
+namespace Taller.Src.Data
 {
     public class StoreContext(DbContextOptions<StoreContext> options) : IdentityDbContext<User>(options)
     {
         public required DbSet<Product> Products { get; set; }
-        public required DbSet<ShippingAddres> ShippingAddres { get; set; }
+        public required DbSet<ShippingAddress> ShippingAddress { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,9 +22,9 @@ namespace Taller.src.data
 
 
         modelBuilder.Entity<User>()
-                .HasOne(u => u.ShippingAddres)
+                .HasOne(u => u.ShippingAddress)
                 .WithOne(sa => sa.User)
-                .HasForeignKey<ShippingAddres>(sa => sa.UserId);
+                .HasForeignKey<ShippingAddress>(sa => sa.UserId);
         List<IdentityRole> roles =
         [
             new IdentityRole { Id = "1" ,Name = "Admin", NormalizedName = "ADMIN" },

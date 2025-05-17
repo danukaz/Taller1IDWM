@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Taller.src.models
+namespace Taller.Src.Models
 {
-    public class ShippingAddres
+    public class ShippingAddress
     {
         public int Id { get; set; }
         public required string Street { get; set; }

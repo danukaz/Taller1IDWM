@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace Taller.src.controllers;
+namespace Taller.Src.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

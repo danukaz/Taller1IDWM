@@ -6,12 +6,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-using Taller.src.interfaces;
-using Taller.src.models;
+using Taller.Src.Interfaces;
+using Taller.Src.Models;
 
 using Microsoft.IdentityModel.Tokens;
 
-namespace Taller.src.service
+namespace Taller.Src.Service
 {
     public class TokenService : ITokenServices
     {
@@ -30,7 +30,7 @@ namespace Taller.src.service
             {
                new Claim(ClaimTypes.NameIdentifier, user.Id),
                new(JwtRegisteredClaimNames.Email, user.Email!),
-               new(JwtRegisteredClaimNames.GivenName, user.FirtsName),
+               new(JwtRegisteredClaimNames.GivenName, user.FirstName),
                new(ClaimTypes.Role, role),
             };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

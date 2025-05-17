@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using Taller.src.requesthelpers;
+using Taller.Src.Requesthelpers;
 
 using Microsoft.Net.Http.Headers;
 
-namespace Taller.src.extensions
+namespace Taller.Src.Extensions
 {
     public static class HttpExtensions
     {
