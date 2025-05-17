@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using Taller.Src.Requesthelpers;
-
 using Microsoft.Net.Http.Headers;
+
+using Taller.Src.Requesthelpers;
 
 namespace Taller.Src.Extensions
 {

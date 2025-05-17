@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
+using SQLitePCL;
+
 using Taller.Src.Data;
 using Taller.Src.Dtos;
 using Taller.Src.Interfaces;
 using Taller.Src.Mappers;
 using Taller.Src.Models;
-
-using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 
 namespace Taller.Src.Repositories
 {
@@ -32,14 +33,18 @@ namespace Taller.Src.Repositories
         public async Task<IEnumerable<UserDto>> GetAllUserAsync()
         {
             var users = await _context.Users.Include(x => x.ShippingAddress).ToListAsync();
-            return users.Select(UserMapper.MapToDTO);
+            return users.Select(UserMapper.UserToUserDto);
         }
 
         public Task<UserDto> GetUserByIdAsync(string firstName)
         {
-            var user = _context.Users.Include(x => x.s).FirstOrDefault(x => x.FirstName == firstName) ?? throw new Exception("User not found");
-            return Task.FromResult(UserMapper.MapToDTO(user));
+            var user = _context.Users.Include(x => x.ShippingAddress)
+                .FirstOrDefault(x => x.FirstName == firstName)
+                ?? throw new Exception("User not found");
+
+            return Task.FromResult(UserMapper.UserToUserDto(user));
         }
+
 
         public void UpdateShippingAddressAsync(UserDto userDto)
         {
@@ -53,7 +58,7 @@ namespace Taller.Src.Repositories
                     Number = userDto.Number ?? string.Empty,
                     Commune = userDto.Commune ?? string.Empty,
                     Region = userDto.Region ?? string.Empty,
-                    PostalCode = userDto.PostalCode ?? string.Empty,
+                    PostalCode = userDto.PostalCode ?? string.Empty
                 };
             }
             else

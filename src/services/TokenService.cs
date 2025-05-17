@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Token.JWT;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.IdentityModel.Tokens;
+
 using Taller.Src.Interfaces;
 using Taller.Src.Models;
-
-using Microsoft.IdentityModel.Tokens;
 
 namespace Taller.Src.Service
 {
@@ -23,12 +23,12 @@ namespace Taller.Src.Service
             _config = config;
             var signinkey = _config["JWT:SignInKey"] ?? throw new ArgumentException("Key not found");
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signinkey));
-        } 
+        }
         public string GenerateToken(User user, string role)
         {
             var claims = new List<Claim>
             {
-               new Claim(ClaimTypes.NameIdentifier, user.Id),
+               new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                new(JwtRegisteredClaimNames.Email, user.Email!),
                new(JwtRegisteredClaimNames.GivenName, user.FirstName),
                new(ClaimTypes.Role, role),
