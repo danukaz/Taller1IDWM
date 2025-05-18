@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Taller.Src.Models;
+using Taller.Src.Dtos;
 
 namespace Taller.Src.Interfaces;
 

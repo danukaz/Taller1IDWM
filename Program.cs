@@ -14,6 +14,7 @@ using Taller.Src.Interfaces;
 using Taller.Src.Models;
 using Taller.Src.Repositories;
 using Taller.Src.Services;
+using Taller.Src.Middlewares;
 
 Log.Logger = new LoggerConfiguration()
 
@@ -86,6 +87,7 @@ try
 
 
     var app = builder.Build();
+    app.UseMiddleware<ExceptionMiddleware>();
     app.UseRouting();
     app.UseCors("EcommercePolicy");
     app.UseAuthentication();

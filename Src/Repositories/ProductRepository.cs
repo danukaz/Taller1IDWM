@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Taller.Src.Data;
 using Taller.Src.Interfaces;
 using Taller.Src.Models;
+using Taller.Src.Dtos;
+using Taller.Src.Services;
 
 namespace Taller.Src.Repositories;
 
@@ -19,11 +21,6 @@ public class ProductRepository(StoreContext store, ILogger<Product> logger) : IP
     public async Task AddProductAsync(Product product)
     {
         await _context.Products.AddAsync(product);
-    }
-
-    public void DeleteProductAsync(Product product)
-    {
-        _context.Products.Remove(product);
     }
 
     public async Task<Product> GetProductByIdAsync(int id)
@@ -38,7 +35,7 @@ public class ProductRepository(StoreContext store, ILogger<Product> logger) : IP
 
     public IQueryable<Product> GetQueryableProducts()
     {
-        throw new NotImplementedException();
+        return _context.Products.AsQueryable();
     }
 
     public async Task UpdateProductAsync(Product product)
@@ -53,10 +50,9 @@ public class ProductRepository(StoreContext store, ILogger<Product> logger) : IP
         _context.Products.Update(existingProduct);
     }
 
-    Task IProductRepository.DeleteProductAsync(Product product)
+    public Task DeleteProductAsync(Product product)
     {
-        throw new NotImplementedException();
+        _context.Products.Remove(product);
+        return Task.CompletedTask;
     }
-
-
 }

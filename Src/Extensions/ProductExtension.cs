@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Taller.Src.Models;
 
-namespace Ayudantia.Src.Extensions
+namespace Taller.Src.Extensions
 {
     public static class ProductExtensions
     {

@@ -21,11 +21,13 @@ namespace Taller.Src.Data
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>()
                 ?? throw new InvalidOperationException("Could not get UserManager");
 
+
             var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
                 ?? throw new InvalidOperationException("Could not get StoreContext");
 
             await SeedData(context, userManager);
         }
+
 
         private static async Task SeedData(StoreContext context, UserManager<User> userManager)
         {
