@@ -8,6 +8,7 @@ namespace Taller.Src.Dtos
 {
     public class ToggleStatusDto
     {
+        public bool IsActive { get; set; }
         [StringLength(255)]
         public string? Reason { get; set; }
     }

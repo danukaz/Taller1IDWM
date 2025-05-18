@@ -87,7 +87,9 @@ namespace Taller.Src.Controllers
                 ));
             }
 
-
+            user.IsActive = dto.IsActive;
+            user.DeactivationReason = dto.IsActive ? null : dto.Reason;
+            
             await _unitOfWork.UserRepository.UpdateUserAsync(user);
             await _unitOfWork.SaveChangeAsync();
 
