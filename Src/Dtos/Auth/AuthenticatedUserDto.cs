@@ -7,7 +7,7 @@ namespace Taller.Src.Dtos
 {
     public class AuthenticatedUserDto
     {
-        public string FirtsName { get; set; } = null!;
+        public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
 

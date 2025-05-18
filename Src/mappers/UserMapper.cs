@@ -51,7 +51,7 @@ namespace Taller.Src.Mappers
         public static AuthenticatedUserDto UserToAuthenticatedDto(User user, string token) =>
             new()
             {
-                FirtsName = user.FirstName,
+                FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email ?? string.Empty,
 
@@ -68,8 +68,8 @@ namespace Taller.Src.Mappers
             };
         public static void UpdateUserFromDto(User user, UpdateProfileDto dto)
         {
-            if (dto.FirtsName is not null)
-                user.FirstName = dto.FirtsName;
+            if (dto.FirstName is not null)
+                user.FirstName = dto.FirstName;
 
             if (dto.LastName is not null)
                 user.LastName = dto.LastName;
