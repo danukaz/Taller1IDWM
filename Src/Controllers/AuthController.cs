@@ -16,7 +16,6 @@ namespace Taller.Src.Controllers
     {
         private readonly ILogger<AuthController> _logger = logger;
         private readonly UserManager<User> _userManager = userManager;
-
         private readonly ITokenServices _tokenService = tokenService;
 
         [HttpPost("register")]

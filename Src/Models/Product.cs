@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,5 +19,14 @@ namespace Taller.Src.Models
         public required string Brand { get; set; }
         public string? PublicId { get; set; }
         public bool IsActive { get; set; } = true;
+        public required ProductCondition Condition { get; set; } = ProductCondition.New;
+    }
+
+    public enum ProductCondition
+    {
+        [Display(Name = "Nuevo")]
+        New,
+        [Display(Name = "Usado")]
+        Used
     }
 }

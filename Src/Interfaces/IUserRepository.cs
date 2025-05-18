@@ -21,5 +21,7 @@ namespace Taller.Src.Interfaces
         Task<bool> CheckPasswordAsync(User user, string password);
         Task<IdentityResult> UpdatePasswordAsync(User user, string currentPassword, string newPassword);
         Task<IList<string>> GetUserRolesAsync(User user);
+        Task<bool> IsInRoleAsync(User user, string roleName);
+        void ClearCache();
     }
 }

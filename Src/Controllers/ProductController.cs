@@ -34,7 +34,8 @@ public class ProductController(ILogger<ProductController> logger, UnitOfWork uni
 
         query = query.Search(productParams.Search)
                      .Filter(productParams.Brands, productParams.Categories)
-                     .Sort(productParams.OrderBy);
+                     .Sort(productParams.OrderBy)
+                     .FilterByCondition(productParams.Condition);
 
         var pagedList = await PagedList<Product>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
 
@@ -126,10 +127,31 @@ public class ProductController(ILogger<ProductController> logger, UnitOfWork uni
         product.Category = dto.Category;
         product.Brand = dto.Brand;
         product.Stock = dto.Stock;
+        product.Condition = dto.Condition;
 
         await _context.ProductRepository.UpdateProductAsync(product);
         await _context.SaveChangeAsync();
 
         return Ok(new ApiResponse<Product>(true, "Producto actualizado correctamente", product));
     }
+
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<ApiResponse<Product>>> Delete(int id)
+    {
+        var product = await _context.ProductRepository.GetProductByIdAsync(id);
+        if (product == null)
+            return NotFound(new ApiResponse<Product>(false, "Producto no encontrado"));
+
+        // Eliminar imagen de Cloudinary
+        if (!string.IsNullOrEmpty(product.PublicId))
+            await _photoService.DeleteImageAsync(product.PublicId);
+
+        await _context.ProductRepository.DeleteProductAsync(product);
+        await _context.SaveChangeAsync();
+
+        return Ok(new ApiResponse<Product>(true, "Producto eliminado correctamente", product));
+    }
+
+
 }

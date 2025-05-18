@@ -20,6 +20,7 @@ namespace Taller.Src.Mappers
                 Stock = dto.Stock,
                 Brand = dto.Brand,
                 Category = dto.Category,
+                Condition = dto.Condition,
                 Urls = urls,
                 PublicId = publicId
             };

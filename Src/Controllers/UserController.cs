@@ -57,7 +57,7 @@ namespace Taller.Src.Controllers
             return Ok(new ApiResponse<IEnumerable<UserDto>>(true, "Usuarios obtenidos correctamente", dtos));
         }
         [Authorize(Roles = "Admin")]
-        // GET /users/{id}
+        // GET /users/{email}
         [HttpGet("{email}")]
         public async Task<ActionResult<ApiResponse<UserDto>>> GetById(string email)
         {
