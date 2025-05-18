@@ -11,8 +11,8 @@ using Taller.Src.Data;
 namespace Taller.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250518221626_AddProductCondition")]
-    partial class AddProductCondition
+    [Migration("20250518232039_FinalMigration")]
+    partial class FinalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
