@@ -122,7 +122,6 @@ Sigue estos pasos para ejecutar la API en tu entorno local:
 | POST   | `/order`                     | Crea un pedido desde el carrito              | Sí            | User             |
 | GET    | `/order`                     | Obtiene historial de pedidos del usuario     | Sí            | User             |
 | GET    | `/order/{id}`                | Obtiene detalles de un pedido específica     | Sí            | User             |
-| PATCH  | `/order/{id}/status`         | Actualiza estado del pedido (Admin only)     | Sí            | Admin            |
 
 ---
 
