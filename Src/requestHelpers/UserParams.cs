@@ -11,5 +11,6 @@ namespace Taller.Src.Requesthelpers
         public DateTime? RegisteredFrom { get; set; }
         public DateTime? RegisteredTo { get; set; }
         public string? SearchTerm { get; set; }
+        public string? OrderBy { get; set; } = "dateDesc";
     }
 }

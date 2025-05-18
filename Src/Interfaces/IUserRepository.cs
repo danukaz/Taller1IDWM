@@ -4,18 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+using Microsoft.AspNetCore.Identity;
+
 using Taller.Src.Dtos;
 using Taller.Src.Models;
+
 
 namespace Taller.Src.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<UserDto>> GetAllUserAsync();
-        Task<UserDto> GetUserByIdAsync(string firstName);
-        Task CreateUserAsync(User user, ShippingAddress? shippingAddress);
-        void UpdateUser(User user);
-        void UpdateShippingAddressAsync(UserDto userDto);
-        void DeleteUserAsync(User user, ShippingAddress shippingAddress);
+        IQueryable<User> GetUsersQueryable();
+        Task<User?> GetUserByIdAsync(string id);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task UpdateUserAsync(User user);
+        Task<bool> CheckPasswordAsync(User user, string password);
+        Task<IdentityResult> UpdatePasswordAsync(User user, string currentPassword, string newPassword);
+        Task<IList<string>> GetUserRolesAsync(User user);
     }
 }

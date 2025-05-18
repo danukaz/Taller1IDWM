@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Taller.Src.Interfaces;
 using Taller.Src.Models;
 
-namespace Taller.Src.Service
+namespace Taller.Src.Services
 {
     public class TokenService : ITokenServices
     {
@@ -28,7 +28,7 @@ namespace Taller.Src.Service
         {
             var claims = new List<Claim>
             {
-               new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+               new Claim(ClaimTypes.NameIdentifier, user.Id),
                new(JwtRegisteredClaimNames.Email, user.Email!),
                new(JwtRegisteredClaimNames.GivenName, user.FirstName),
                new(ClaimTypes.Role, role),
@@ -38,7 +38,7 @@ namespace Taller.Src.Service
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddHours(8),   // No se especifica el tiempo de expiracion en la documentacion del taller, por lo que se deja en 8 horas, un tiempo razonable.
                 SigningCredentials = creds,
                 Issuer = _config["Jwt:Issuer"],
                 Audience = _config["Jwt:Audience"]

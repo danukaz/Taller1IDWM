@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -10,8 +11,11 @@ using Serilog;
 
 using Taller.Src.Data;
 using Taller.Src.Interfaces;
+using Taller.Src.Middlewares;
 using Taller.Src.Models;
 using Taller.Src.Repositories;
+using Taller.Src.Services;
+
 Log.Logger = new LoggerConfiguration()
 
     .CreateLogger();
@@ -21,11 +25,13 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
+    builder.Services.AddDbContext<StoreContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<ITokenServices, TokenService>();
     builder.Services.AddScoped<UnitOfWork>();
-
     builder.Services.AddIdentity<User, IdentityRole>(opt =>
     {
         opt.User.RequireUniqueEmail = true;
@@ -55,18 +61,38 @@ try
         };
     });
 
-    builder.Services.AddDbContext<StoreContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Host.UseSerilog((context, services, configuration) => configuration
             .ReadFrom.Configuration(context.Configuration)
             .Enrich.FromLogContext()
             .Enrich.WithThreadId()
             .Enrich.WithMachineName());
 
+
+    var corsSettings = builder.Configuration.GetSection("CorsSettings");
+    var origins = corsSettings["AllowedOrigins"]?.Split(';')
+              ?? ["http://localhost:3000"];
+    var methods = corsSettings["AllowedMethods"]?.Split(',')
+              ?? ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"];
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("EcommercePolicy", policy =>
+        {
+            policy.WithOrigins(origins)
+                .WithMethods(methods)
+                .WithHeaders("Content-Type", "Authorization")
+                .AllowCredentials();
+        });
+    });
+
+
     var app = builder.Build();
+    app.UseMiddleware<ExceptionMiddleware>();
+    app.UseRouting();
+    app.UseCors("EcommercePolicy");
     app.UseAuthentication();
     app.UseAuthorization();
-    DbInitializer.InitDb(app);
+    await DbInitializer.InitDb(app);
     app.MapControllers();
     app.Run();
 }

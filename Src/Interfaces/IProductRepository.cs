@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Taller.Src.Dtos;
 using Taller.Src.Models;
 
 namespace Taller.Src.Interfaces;
