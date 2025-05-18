@@ -10,6 +10,6 @@ namespace Taller.Src.Interfaces
     public interface IPhotoService
     {
         Task<ImageUploadResult> UploadImageAsync(IFormFile file);
-        Task<DeletionResult> DeletePhotoAsync(string publicId);
+        Task<DeletionResult> DeleteImageAsync(string publicId);
     }
 }

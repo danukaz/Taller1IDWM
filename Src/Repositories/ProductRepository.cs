@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 using Taller.Src.Data;
+using Taller.Src.Dtos;
 using Taller.Src.Interfaces;
 using Taller.Src.Models;
-using Taller.Src.Dtos;
 using Taller.Src.Services;
 
 namespace Taller.Src.Repositories;
@@ -38,17 +38,12 @@ public class ProductRepository(StoreContext store, ILogger<Product> logger) : IP
         return _context.Products.AsQueryable();
     }
 
-    public async Task UpdateProductAsync(Product product)
+    public Task UpdateProductAsync(Product product)
     {
-        var existingProduct = await _context.Products.FindAsync(product.Id) ?? throw new Exception("Product not found");
-        existingProduct.Name = product.Name;
-        existingProduct.Description = product.Description;
-        existingProduct.Price = product.Price;
-        existingProduct.Stock = product.Stock;
-        existingProduct.Urls = product.Urls;
-        existingProduct.Brand = product.Brand;
-        _context.Products.Update(existingProduct);
+        _context.Products.Update(product);
+        return Task.CompletedTask;
     }
+
 
     public Task DeleteProductAsync(Product product)
     {

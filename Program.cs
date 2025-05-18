@@ -11,10 +11,10 @@ using Serilog;
 
 using Taller.Src.Data;
 using Taller.Src.Interfaces;
+using Taller.Src.Middlewares;
 using Taller.Src.Models;
 using Taller.Src.Repositories;
 using Taller.Src.Services;
-using Taller.Src.Middlewares;
 
 Log.Logger = new LoggerConfiguration()
 

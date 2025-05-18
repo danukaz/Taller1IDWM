@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller.Src.Interfaces;
-
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+
+using Taller.Src.Interfaces;
 
 namespace Taller.Src.Services
 {
@@ -49,7 +49,7 @@ namespace Taller.Src.Services
         }
 
 
-        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
+        public async Task<DeletionResult> DeleteImageAsync(string publicId)
         {
             var deleteParams = new DeletionParams(publicId);
             var result = await _cloudinary.DestroyAsync(deleteParams);

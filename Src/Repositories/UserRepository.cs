@@ -3,90 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-using SQLitePCL;
-
-using Taller.Src.Data;
-using Taller.Src.Dtos;
 using Taller.Src.Interfaces;
-using Taller.Src.Mappers;
 using Taller.Src.Models;
 
 namespace Taller.Src.Repositories
 {
-    public class UserRepository(StoreContext store) : IUserRepository
+    public class UserRepository(UserManager<User> userManager) : IUserRepository
     {
-        private readonly StoreContext _context = store;
-        public async Task CreateUserAsync(User user, ShippingAddress? shippingAddress)
+        private readonly UserManager<User> _userManager = userManager;
+        public IQueryable<User> GetUsersQueryable()
         {
-            await _context.Users.AddAsync(user);
-            if (shippingAddress != null) await _context.ShippingAddress.AddAsync(shippingAddress);
+            return _userManager.Users.Include(u => u.ShippingAddress).AsQueryable();
         }
 
-        public void DeleteUserAsync(User user, ShippingAddress shippingAddress)
+        public async Task<User?> GetUserByIdAsync(string id)
         {
-            _context.ShippingAddress.Remove(shippingAddress);
-            _context.Users.Remove(user);
+            return await _userManager.Users
+                .Include(u => u.ShippingAddress)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUserAsync()
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            var users = await _context.Users.Include(x => x.ShippingAddress).ToListAsync();
-            return users.Select(UserMapper.UserToUserDto);
+            return await _userManager.Users
+                .Include(u => u.ShippingAddress)
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public Task<UserDto> GetUserByIdAsync(string firstName)
+        public async Task UpdateUserAsync(User user)
         {
-            var user = _context.Users.Include(x => x.ShippingAddress)
-                .FirstOrDefault(x => x.FirstName == firstName)
-                ?? throw new Exception("User not found");
-
-            return Task.FromResult(UserMapper.UserToUserDto(user));
+            await _userManager.UpdateAsync(user);
         }
 
-
-        public void UpdateShippingAddressAsync(UserDto userDto)
+        public async Task<bool> CheckPasswordAsync(User user, string password)
         {
-            var user = _context.Users.Include(x => x.ShippingAddress).FirstOrDefault(x => x.FirstName == userDto.FirstName) ?? throw new Exception("User not found");
-
-            if (user.ShippingAddress == null)
+            return await Task.Run(() =>
             {
-                user.ShippingAddress = new ShippingAddress
-                {
-                    Street = userDto.Street ?? string.Empty,
-                    Number = userDto.Number ?? string.Empty,
-                    Commune = userDto.Commune ?? string.Empty,
-                    Region = userDto.Region ?? string.Empty,
-                    PostalCode = userDto.PostalCode ?? string.Empty
-                };
-            }
-            else
-            {
-                user.ShippingAddress.Street = userDto.Street ?? string.Empty;
-                user.ShippingAddress.Number = userDto.Number ?? string.Empty;
-                user.ShippingAddress.Commune = userDto.Commune ?? string.Empty;
-                user.ShippingAddress.Region = userDto.Region ?? string.Empty;
-                user.ShippingAddress.PostalCode = userDto.PostalCode ?? string.Empty;
-            }
-            _context.ShippingAddress.Update(user.ShippingAddress);
-            _context.Users.Update(user);
+                var hasher = new PasswordHasher<User>();
+                var result = hasher.VerifyHashedPassword(user, user.PasswordHash!, password);
+                return result == PasswordVerificationResult.Success;
+            });
         }
+        public async Task<IdentityResult> UpdatePasswordAsync(User user, string currentPassword, string newPassword)
+        => await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
 
-        public void UpdateUser(User user)
+
+        public async Task<IList<string>> GetUserRolesAsync(User user)
         {
-            var existingUser = _context.Users.FirstOrDefault(x => x.FirstName == user.FirstName) ?? throw new Exception("User not found");
-            if (existingUser != null)
-            {
-                existingUser.LastName = user.LastName;
-                existingUser.Telephone = user.Telephone;
-                existingUser.Email = user.Email;
-                _context.Users.Update(existingUser);
-            }
-            else
-            {
-                throw new Exception("User not found");
-            }
+            return await _userManager.GetRolesAsync(user);
         }
     }
 }
