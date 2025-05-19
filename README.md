@@ -16,12 +16,13 @@ Para ejecutar este sistema, necesitas tener instaladas las siguientes herramient
 ## Instrucciones de instalación
 
 Sigue estos pasos para clonar el repositorio y preparar tu entorno de desarrollo:
-s
+
 1. **Clonar el repositorio**:
    En tu terminal o consola, navega a la carpeta en la que quieras instalar el proyecto y ejecuta el siguiente comando para clonar el repositorio en tu máquina local:
    ```bash
    git clone https://github.com/danukaz/Taller1IDWM
    ```
+   
 2. **Restaurar las dependencias**:
    Una vez clonado el repositorio, ejecuta los siguiente comandos para restaurar las dependencias del proyecto:
    ```bash
@@ -29,6 +30,7 @@ s
    dotnet restore           # Restaura dependencias NuGet
    dotnet tool restore      # Restaura herramientras dotnet (como husky)
    ```
+   
 3. **Configurar appsettings.json**
    En la carpeta raíz del proyecto, verás un archivo llamado `appsettings.example.json`. Por razones de seguridad, no se puede compartir el archivo original, pero se provee este archivo de ejemplo para que el usuario no pueda ver información sensible que se pueda colocar en este archivo. Deberás rellenar los siguientes campos en este archivo:
    ```json
@@ -48,13 +50,15 @@ s
      "ApiSecret": "<api-secret>"
    },
    ```
-Y por último, debes cambiar el nombre del archivo a `appsettings.json`, una vez hecho esto, puedes pasar con el siguiente paso.
+   Y por último, debes cambiar el nombre del archivo a `appsettings.json`, una vez hecho esto, puedes pasar con el siguiente paso.
+
 4. **Configurar la base de datos** (opcional):
    La base de datos se inicializa automáticamente al ejecutar la aplicación, pero si por algún motivo se produce un error o deseas inicializarla manualmente, puedes eliminar los archivos de la carpeta Src/Data/Migrations, y ejecutar el siguiente comando:
    ```bash
    dotnet ef migrations add FinalMigration -o Src/Data/Migrations
    dotnet ef database update
    ```
+   
 5. **Ejecutar la aplicación y probar la API**
    Ejecuta este comando en la raíz del proyecto:
    ```bash
