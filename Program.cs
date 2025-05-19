@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
 using Taller.Src.Data;
+using Taller.Src.Helpers;
 using Taller.Src.Interfaces;
 using Taller.Src.Middlewares;
 using Taller.Src.Models;
@@ -28,10 +29,19 @@ try
     builder.Services.AddDbContext<StoreContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+    builder.Services.AddTransient<ExceptionMiddleware>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<ITokenServices, TokenService>();
+    builder.Services.AddScoped<IShippingAddressRepository, ShippingAddressRepository>();
+    builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+    builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+    builder.Services.AddScoped<IPhotoService, PhotoService>();
     builder.Services.AddScoped<UnitOfWork>();
+    builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+    {
+        options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    });
     builder.Services.AddIdentity<User, IdentityRole>(opt =>
     {
         opt.User.RequireUniqueEmail = true;

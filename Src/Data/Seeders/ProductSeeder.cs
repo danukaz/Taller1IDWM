@@ -28,6 +28,7 @@ namespace Taller.Src.Data
                     $"https://res.cloudinary.com/demo/image/upload/sample2.jpg",
                     $"https://res.cloudinary.com/demo/image/upload/sample3.jpg"
                 })
+                .RuleFor(p => p.Condition, f => f.PickRandom<ProductCondition>())
                 .Generate(quantity);
 
             return products;

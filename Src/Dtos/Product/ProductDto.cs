@@ -35,7 +35,8 @@ namespace Taller.Src.Dtos
         public int Stock { get; set; }
 
         [Required]
-
         public List<IFormFile> Images { get; set; } = [];
+        [Required(ErrorMessage = "La condición del producto es requerida")]
+        public ProductCondition Condition { get; set; }
     }
 }

@@ -48,5 +48,15 @@ namespace Taller.Src.Extensions
             return query;
         }
 
+        public static IQueryable<Product> FilterByCondition(
+            this IQueryable<Product> query,
+            ProductCondition? condition)
+        {
+            if (condition.HasValue)
+            {
+                return query.Where(p => p.Condition == condition.Value);
+            }
+            return query;
+        }
     }
 }

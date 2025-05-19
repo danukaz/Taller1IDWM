@@ -11,8 +11,8 @@ using Taller.Src.Data;
 namespace Taller.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250518051143_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250518232039_FinalMigration")]
+    partial class FinalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,106 @@ namespace Taller.Src.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Taller.Src.Models.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("BasketId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BasketItems");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ShippingAddressId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShippingAddressId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Taller.Src.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -175,6 +275,9 @@ namespace Taller.Src.Data.Migrations
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Condition")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -384,6 +487,55 @@ namespace Taller.Src.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Taller.Src.Models.BasketItem", b =>
+                {
+                    b.HasOne("Taller.Src.Models.Basket", "Basket")
+                        .WithMany("Items")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Taller.Src.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.Order", b =>
+                {
+                    b.HasOne("Taller.Src.Models.ShippingAddress", "ShippingAddress")
+                        .WithMany()
+                        .HasForeignKey("ShippingAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Taller.Src.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShippingAddress");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.OrderItem", b =>
+                {
+                    b.HasOne("Taller.Src.Models.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Taller.Src.Models.ShippingAddress", b =>
                 {
                     b.HasOne("Taller.Src.Models.User", "User")
@@ -393,6 +545,16 @@ namespace Taller.Src.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.Basket", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Taller.Src.Models.Order", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Taller.Src.Models.User", b =>
