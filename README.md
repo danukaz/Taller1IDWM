@@ -48,18 +48,14 @@ s
      "ApiSecret": "<api-secret>"
    },
    ```
-5. **Configurar la base de datos** (opcional):
+Y por último, debes cambiar el nombre del archivo a `appsettings.json`, una vez hecho esto, puedes pasar con el siguiente paso.
+4. **Configurar la base de datos** (opcional):
    La base de datos se inicializa automáticamente al ejecutar la aplicación, pero si por algún motivo se produce un error o deseas inicializarla manualmente, puedes eliminar los archivos de la carpeta Src/Data/Migrations, y ejecutar el siguiente comando:
    ```bash
    dotnet ef migrations add FinalMigration -o Src/Data/Migrations
    dotnet ef database update
    ```
-
-## Ejecutar y probar la API
-
-Sigue estos pasos para ejecutar la API en tu entorno local:
-
-1. **Iniciar la aplicación**:
+5. **Ejecutar la aplicación y probar la API**
    Ejecuta este comando en la raíz del proyecto:
    ```bash
    dotnet run
